@@ -1,11 +1,11 @@
 /*
-* Copyright 2005-2017 Rochus Keller <mailto:me@rochus-keller.info>
+* Copyright 2005-2017 Rochus Keller <mailto:me@rochus-keller.ch>
 *
 * This file is part of the DoorScope Stream library.
 *
 * The following is the license that applies to this copy of the
 * library. For a license to use the library under conditions
-* other than those described here, please email to me@rochus-keller.info.
+* other than those described here, please email to me@rochus-keller.ch.
 *
 * GNU General Public License Usage
 * This file may be used under the terms of the GNU General Public
@@ -352,7 +352,7 @@ quint32 Helper::writeMultibyte64( char* out, quint64 i )
 		out[5] = (i >> 7) & 0x7F | 0x80;
 		out[6] = i & 0x7F;
 		return 7;
-	}else if( i <= 0x1FFFFFFFFFFFFFFL ) // Für Mac GCC 4.0.1 muss hier LLU stehen
+	}else if( i <= 0x1FFFFFFFFFFFFFFL ) // FÃ¼r Mac GCC 4.0.1 muss hier LLU stehen
 		// 1xxxxxxx 1xxxxxxx 1xxxxxxx 1xxxxxxx 1xxxxxxx 1xxxxxxx 1xxxxxxx 0xxxxxxx
 	{
 		out[0] = (i >> 49) & 0x7F | 0x80;

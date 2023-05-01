@@ -2,13 +2,13 @@
 #define __stream_datacell__
 
 /*
-* Copyright 2005-2017 Rochus Keller <mailto:me@rochus-keller.info>
+* Copyright 2005-2017 Rochus Keller <mailto:me@rochus-keller.ch>
 *
 * This file is part of the DoorScope Stream library.
 *
 * The following is the license that applies to this copy of the
 * library. For a license to use the library under conditions
-* other than those described here, please email to me@rochus-keller.info.
+* other than those described here, please email to me@rochus-keller.ch.
 *
 * GNU General Public License Usage
 * This file may be used under the terms of the GNU General Public
@@ -49,7 +49,7 @@ namespace Stream
 			TypeNull,
 			TypeTrue,
 			TypeFalse,
-			TypeAtom,	// Codierter 8-Bit-ANSI-String, für Feldnamen/Elemente verwendet
+			TypeAtom,	// Codierter 8-Bit-ANSI-String, fÃ¼r Feldnamen/Elemente verwendet
 			TypeOid,	// 64-Bit-Objekt-ID
 			TypeRid,	// 64-Bit-Relation-ID
 			TypeSid,	// 32-Bit-Stream-ID, Multibyte
@@ -73,7 +73,7 @@ namespace Stream
 			TypeDateTime,
 			TypeTimeSlot,
 			TypeUrl,	// Intern QUrl, gespeichert als encoded Ascii
-			TypeImg,	// Qt-Image-Format, alle unterstützten Formate, wie TypeLob
+			TypeImg,	// Qt-Image-Format, alle unterstÃ¼tzten Formate, wie TypeLob
 			TypePic,	// Qt-Picture-Format, wie TypeLob
 			TypeUuid,	// QUuid, gespeichert als ByteArray _UUID_LEN of data1..data4
 			TypeHtml,	// Wie TypeString
@@ -267,7 +267,7 @@ namespace Stream
 		DataCell& setUrl( const QByteArray& encoded );
 		DataCell& setUrl( const QString& unencoded );
 		DataCell& setUrl( const QUrl& );
-		QUrl getUrl() const; // Alternativ ist getArr() verfügbar
+		QUrl getUrl() const; // Alternativ ist getArr() verfÃ¼gbar
 		DataCell& setBool( bool b )
 		{
 			clear();
@@ -283,7 +283,7 @@ namespace Stream
 		DataCell& setAscii( const QByteArray& str, bool nullIfEmpty = true );
 		DataCell& setNull();
 
-		// NOTE: setter geben DataCell& zurück, damit DataCell().setXY(..) als Parameter funktioniert.
+		// NOTE: setter geben DataCell& zurÃ¼ck, damit DataCell().setXY(..) als Parameter funktioniert.
 
 		QString getStr() const;
 		QByteArray getArr() const;
@@ -314,9 +314,9 @@ namespace Stream
 		// dataOnly..ohne type und len
 		// compressed..Wert wird komprimiert gespeichert (nur Strings und Binaries und > 64)
 		void writeCell( QIODevice*, bool dataOnly = false, bool compressed = false ) const; 
-		QByteArray writeCell( bool dataOnly = false, bool compressed = false ) const; // Abgekürzte Version mit Buffer
+		QByteArray writeCell( bool dataOnly = false, bool compressed = false ) const; // AbgekÃ¼rzte Version mit Buffer
 		long readCell( QIODevice* ); // returns read or -1
-		bool readCell( const QByteArray& ); // Abgekürzte Version mit Buffer; true..ok
+		bool readCell( const QByteArray& ); // AbgekÃ¼rzte Version mit Buffer; true..ok
 
 		struct Peek
 		{
@@ -325,8 +325,8 @@ namespace Stream
 			quint32 getHeaderLength() const { return 1 + d_off; }
 			bool isValid() const { return d_type != TypeInvalid; }
 			DataType d_type; // TypeInvalid..pending
-			quint8 d_off;  // Länge des Anzahlfelds
-			quint32 d_len; // Länge der Daten
+			quint8 d_off;  // LÃ¤nge des Anzahlfelds
+			quint32 d_len; // LÃ¤nge der Daten
 		};
 		static Peek peekCell( QIODevice*); 
 
@@ -346,7 +346,7 @@ namespace Stream
 			double d_double;
             float d_float;
 			quint8 d_buf[ sizeof(double) ];
-			quint32 d_pair[2]; // z.B. für DateTime
+			quint32 d_pair[2]; // z.B. fÃ¼r DateTime
 		};
 
 		quint8 d_type;

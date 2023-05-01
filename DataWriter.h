@@ -2,13 +2,13 @@
 #define __stream_datawriter__
 
 /*
-* Copyright 2005-2017 Rochus Keller <mailto:me@rochus-keller.info>
+* Copyright 2005-2017 Rochus Keller <mailto:me@rochus-keller.ch>
 *
 * This file is part of the DoorScope Stream library.
 *
 * The following is the license that applies to this copy of the
 * library. For a license to use the library under conditions
-* other than those described here, please email to me@rochus-keller.info.
+* other than those described here, please email to me@rochus-keller.ch.
 *
 * GNU General Public License Usage
 * This file may be used under the terms of the GNU General Public
@@ -26,14 +26,14 @@
 namespace Stream
 {
 	// Value Class
-	// Generiert einen BML-Stream. Wenn man gültige BML-Streams aneinanderhängt, ist das Ergebnis wieder 
-	// ein gültiger BML-Stream.
+	// Generiert einen BML-Stream. Wenn man gÃ¼ltige BML-Streams aneinanderhÃ¤ngt, ist das Ergebnis wieder 
+	// ein gÃ¼ltiger BML-Stream.
 	class DataWriter
 	{
 	public:
 		DataWriter( QIODevice*, bool owner = false );
 		DataWriter(); // Erzeuge einen Writer mit QBuffer
-		DataWriter( const DataWriter& rhs ); // dummy für Default-Constructor
+		DataWriter( const DataWriter& rhs ); // dummy fÃ¼r Default-Constructor
 		~DataWriter();
 
 		DataWriter& operator=( const DataWriter& ) { return *this; } // Dummy
@@ -52,7 +52,7 @@ namespace Stream
 		quint16 getCells() const { return d_cells; }
 		quint16 getNulls() const { return d_nulls; }
 		bool isNull() const { return d_cells == d_nulls; }
-		QByteArray getStream() const; // Im Falle von QBuffer gebe buffer() zurück.
+		QByteArray getStream() const; // Im Falle von QBuffer gebe buffer() zurÃ¼ck.
 		DataCell getBml() const { return DataCell().setBml( getStream() ); }
 	private:
 		void open();
@@ -60,7 +60,7 @@ namespace Stream
 		QIODevice* d_out;
 		QMap<QByteArray,quint32> d_names;
 		quint16 d_level;
-		// RISK: genügen #16bit Cells?
+		// RISK: genÃ¼gen #16bit Cells?
 		quint16 d_cells; // Anzahl Top-Level-Cells
 		quint16 d_nulls; // Anzahl Top-Level-Nulls
 		bool d_owner;

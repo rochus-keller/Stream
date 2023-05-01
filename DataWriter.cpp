@@ -1,11 +1,11 @@
 /*
-* Copyright 2005-2017 Rochus Keller <mailto:me@rochus-keller.info>
+* Copyright 2005-2017 Rochus Keller <mailto:me@rochus-keller.ch>
 *
 * This file is part of the DoorScope Stream library.
 *
 * The following is the license that applies to this copy of the
 * library. For a license to use the library under conditions
-* other than those described here, please email to me@rochus-keller.info.
+* other than those described here, please email to me@rochus-keller.ch.
 *
 * GNU General Public License Usage
 * This file may be used under the terms of the GNU General Public
@@ -122,7 +122,7 @@ void DataWriter::startFrame( const char* ascii )
 		// Name existiert noch nicht. Sende ihn explizit
 		d_names[name] = d_names.size();
 		Helper::write( d_out, DataCell::typeToSym( DataCell::FrameNameStr ) );
-		// Schreibt zuerst die Länge
+		// Schreibt zuerst die LÃ¤nge
 		const quint32 len = name.size() + 1;
 		Helper::writeMultibyte32( d_out, len );
 		d_out->write( name, len );
@@ -147,7 +147,7 @@ void DataWriter::writeSlot( const DataCell& v, DataCell::Atom name, bool compres
 	open();
 	if( !v.isValid() )
 		return;
-	//Künftig auch Named-Slots auf Toplevel zulässig
+	//KÃ¼nftig auch Named-Slots auf Toplevel zulÃ¤ssig
 	//if( d_level == 0 && name != DataCell::null )
 	//	throw Exception( "writeSlot: named slots not allowed on top level" );
 	if( name != DataCell::null )
@@ -201,7 +201,7 @@ void DataWriter::writeSlot( const DataCell& v, const char* ascii, bool compress 
 		// Name existiert noch nicht. Sende ihn explizit
 		d_names[name] = d_names.size();
 		Helper::write( d_out, DataCell::typeToSym( DataCell::SlotNameStr ) );
-		// Schreibt zuerst die Länge
+		// Schreibt zuerst die LÃ¤nge
 		const quint32 len = name.size() + 1;
 		Helper::writeMultibyte32( d_out, len );
 		d_out->write( name, len );

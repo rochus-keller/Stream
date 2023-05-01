@@ -1,11 +1,11 @@
 /*
-* Copyright 2005-2017 Rochus Keller <mailto:me@rochus-keller.info>
+* Copyright 2005-2017 Rochus Keller <mailto:me@rochus-keller.ch>
 *
 * This file is part of the DoorScope Stream library.
 *
 * The following is the license that applies to this copy of the
 * library. For a license to use the library under conditions
-* other than those described here, please email to me@rochus-keller.info.
+* other than those described here, please email to me@rochus-keller.ch.
 *
 * GNU General Public License Usage
 * This file may be used under the terms of the GNU General Public
@@ -30,8 +30,8 @@ using namespace Stream;
 /////////////////////////////////////////////////////////////////////////////////////
 // Stream Types
 
-// VORSICHT: diese Konstanten nicht mehr ändern. Die Werte wurden in der Datenbank
-// bereits gespeichert. Erweiterungen sind erlaubt, nicht aber Änderungen.
+// VORSICHT: diese Konstanten nicht mehr Ã¤ndern. Die Werte wurden in der Datenbank
+// bereits gespeichert. Erweiterungen sind erlaubt, nicht aber Ã„nderungen.
 // VORSICHT: Das Most Significant Bit wird verwendet, um Komprimierung zu kodieren!
 static const quint8 s_symNull = 0;
 static const quint8 s_symTrue = 1;
@@ -395,8 +395,8 @@ static quint32 _fromTime( const QTime& t )
 	return ( t.hour() * SECS_PER_HOUR + t.minute() * SECS_PER_MIN + t.second() )*
 		1000 + t.msec();
     // Maximal resultierden Zahl: ( 23 * 3600 + 59 * 60 + 59 ) * 1000 + 999 = 86'399'999
-    // oder Binär  00000101 00100110 01011011 11111111 oder Hex  05 26 5B FF
-    // Man kann also MSB gut für Kodierung UTC-Bit verwenden
+    // oder BinÃ¤r  00000101 00100110 01011011 11111111 oder Hex  05 26 5B FF
+    // Man kann also MSB gut fÃ¼r Kodierung UTC-Bit verwenden
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -593,7 +593,7 @@ DataCell& DataCell::setUrl( const QUrl& url )
 	{
 		d_type = TypeUrl;
 		QByteArray tmp = url.toEncoded();
-		// QT-BUG: toEncoded scheint irgendwie seltsam zu funktionieren. Am Schluss wird %00 angehängt
+		// QT-BUG: toEncoded scheint irgendwie seltsam zu funktionieren. Am Schluss wird %00 angehÃ¤ngt
 		if( tmp.endsWith( "%00" ) )
 			tmp.chop( 3 );
 		if( !tmp.isEmpty() )
@@ -683,7 +683,7 @@ DataCell& DataCell::setDateTime( QDateTime dt )
 	d_pair[1] = dt.date().toJulianDay();
 	d_pair[0] = _fromTime( dt.time() );
     if( isUtc )
-        d_pair[0] = d_pair[0] | 0x80000000; // Setze MSB für UTC-Kennzeichnung
+        d_pair[0] = d_pair[0] | 0x80000000; // Setze MSB fÃ¼r UTC-Kennzeichnung
 	return *this;
 }
 
@@ -864,7 +864,7 @@ static inline void _writeArray( QIODevice* out, DataCell::DataType t, QByteArray
 	quint32 len = str.length();
 	if( string )
 	{
-		// korrigiere hier, dass QByteArray::fromRawData bei length das Nullzeichen mitzählt.
+		// korrigiere hier, dass QByteArray::fromRawData bei length das Nullzeichen mitzÃ¤hlt.
 		if( len > 0 && str[len-1] == char(0) )
 			len = ::strlen( str ); 
 		// verwende nicht truncate, da dann der Speicher umalloziiert wird
@@ -990,7 +990,7 @@ void DataCell::writeCell( QIODevice* out, bool dataOnly, bool compressed ) const
 			Helper::write( out, quint16( d_pair[1] ) );
 			break;
 		case TypeTag:
-			// Schreibt die Länge nicht
+			// Schreibt die LÃ¤nge nicht
 			out->write( (char*)d_buf, NameTag::Size );
 			break;
 		default:
@@ -1042,7 +1042,7 @@ DataCell::Peek DataCell::peekCell(QIODevice* in)
 	case BINARY:
 		{
 			// NOTE: auch String wird im Stream mit Anzahl gesendet
-			if( in->bytesAvailable() < 1 + 1 ) // Type + Multibyte mind. Länge 1
+			if( in->bytesAvailable() < 1 + 1 ) // Type + Multibyte mind. LÃ¤nge 1
 				return Peek();
 			const int count = in->peek( buf, 1 + Helper::multiByte32MaxLen );
 			const int n = Helper::peekMultibyte32( buf + 1, count - 1 );
@@ -1054,7 +1054,7 @@ DataCell::Peek DataCell::peekCell(QIODevice* in)
 		break;
 	case MBYTE64:
 		{
-			if( in->bytesAvailable() < 1 + 1 ) // Type + Multibyte mind. Länge 1
+			if( in->bytesAvailable() < 1 + 1 ) // Type + Multibyte mind. LÃ¤nge 1
 				return Peek();
 			const int count = in->peek( buf, 1 + Helper::multiByte64MaxLen );
 			const int n = Helper::peekMultibyte64( buf + 1, count - 1 );
@@ -1065,7 +1065,7 @@ DataCell::Peek DataCell::peekCell(QIODevice* in)
 		break;
 	case MBYTE32:
 		{
-			if( in->bytesAvailable() < 1 + 1 ) // Type + Multibyte mind. Länge 1
+			if( in->bytesAvailable() < 1 + 1 ) // Type + Multibyte mind. LÃ¤nge 1
 				return Peek();
 			const int count = in->peek( buf, 1 + Helper::multiByte32MaxLen );
 			const int n = Helper::peekMultibyte32( buf + 1, count - 1 );
@@ -1080,7 +1080,8 @@ DataCell::Peek DataCell::peekCell(QIODevice* in)
 	return res;
 }
 
-#include <zlib/zlib.h>
+#if 0
+#include <thirdparty/zlib.h>
 static QByteArray myUncompress(const uchar* data, int nbytes)
 {
 	// Direkte Kopie aus Qt-4.3.5. Diese Routine ist ab Qt 4.4 fehlerhaft
@@ -1095,7 +1096,7 @@ static QByteArray myUncompress(const uchar* data, int nbytes)
     }
     ulong expectedSize = (data[0] << 24) | (data[1] << 16) |
                        (data[2] <<  8) | (data[3]);
-	/* NOTE: Qt setzt in qCompress die Originallänge als 32Bit-Zahl vor den Stream in folgender Weise, die plattformunabhängig ist:
+	/* NOTE: Qt setzt in qCompress die OriginallÃ¤nge als 32Bit-Zahl vor den Stream in folgender Weise, die plattformunabhÃ¤ngig ist:
 	        bazip.resize(len + 4);
             bazip[0] = (nbytes & 0xff000000) >> 24;
             bazip[1] = (nbytes & 0x00ff0000) >> 16;
@@ -1132,6 +1133,7 @@ static QByteArray myUncompress(const uchar* data, int nbytes)
 
     return baunzip;
 }
+#endif
 
 long DataCell::readCell( QIODevice* in )
 {
@@ -1154,7 +1156,7 @@ long DataCell::readCell( QIODevice* in )
 	else if( type == FrameNameTag || type == SlotNameTag )
 		type = TypeTag;
 
-	clear(); // lösche this
+	clear(); // lÃ¶sche this
 	d_type = type;
 
 	const int len = typeByteCount[ type ];
@@ -1168,7 +1170,11 @@ long DataCell::readCell( QIODevice* in )
 			Helper::readMultibyte32( in, count );
 			QByteArray str = in->read( count );
 			if( compressed )
+#if 0
 				str = myUncompress( reinterpret_cast<const uchar*>(str.constData()), str.size() );
+#else
+                str = qUncompress(str);
+#endif
 
 			if( len == UNISTR )
 			{
@@ -1178,18 +1184,18 @@ long DataCell::readCell( QIODevice* in )
 				assert( len == BINARY || len == CSTRING );
 				if( len == CSTRING )
 				{
-					// Korrigiere hier, dass der gespeicherte String bereits ein Nullzeichen enthält.
+					// Korrigiere hier, dass der gespeicherte String bereits ein Nullzeichen enthÃ¤lt.
 					if( count > 0 && str[count-1] == char(0) )
 					{
-						// Prüfe, ob der String ev. das Opfer von überzähligen Nullzeichen ist, was vor dieser
+						// PrÃ¼fe, ob der String ev. das Opfer von Ã¼berzÃ¤hligen Nullzeichen ist, was vor dieser
 						// Fehlerbehebung bei mehrmaligem read/write passieren konnte.
 						if( count > 1 && str[count-2] == char(0) )
 						{
 							count = ::strlen( str ) + 1; 
-							// Das passiert mit früheren DB-Dateien ziemlich häufig.
+							// Das passiert mit frÃ¼heren DB-Dateien ziemlich hÃ¤ufig.
 							// qWarning( "DataCell::readCell string with more than one terminal null" );
 						}
-						// Da str hier noch nicht shared ist, macht truncate keine Allokationsänderung; also günstig.
+						// Da str hier noch nicht shared ist, macht truncate keine AllokationsÃ¤nderung; also gÃ¼nstig.
 						str.truncate( count-1 );
 					}
 				}
@@ -1294,7 +1300,7 @@ QString DataCell::toString(bool strip_markup) const
     case TypeXml:
         if( strip_markup )
             return stripMarkup( getStr(), false );
-            // RISK: 4.3.14 eingeführt, vorher wie TypeXml, am 2.5.14 ersetzt durch 2
+            // RISK: 4.3.14 eingefÃ¼hrt, vorher wie TypeXml, am 2.5.14 ersetzt durch 2
         else
             return getStr();
     case TypeString:

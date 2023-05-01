@@ -1,11 +1,11 @@
 /*
-* Copyright 2005-2017 Rochus Keller <mailto:me@rochus-keller.info>
+* Copyright 2005-2017 Rochus Keller <mailto:me@rochus-keller.ch>
 *
 * This file is part of the DoorScope Stream library.
 *
 * The following is the license that applies to this copy of the
 * library. For a license to use the library under conditions
-* other than those described here, please email to me@rochus-keller.info.
+* other than those described here, please email to me@rochus-keller.ch.
 *
 * GNU General Public License Usage
 * This file may be used under the terms of the GNU General Public
@@ -77,8 +77,8 @@ void DataReader::fetchNext()
 
 	char buf[sizeof(double)];
 
-	// Schaue, was als nächstes kommt
-	// Wir benötigen mindestens den DataType
+	// Schaue, was als nÃ¤chstes kommt
+	// Wir benÃ¶tigen mindestens den DataType
 	switch( d_in->peek( buf, 1 ) )
 	{
 	case 0:
@@ -97,7 +97,7 @@ void DataReader::fetchNext()
 		{
 			// Fresse FrameStart, das mit peek oben vorsondiert wurde
 			d_in->read( buf, 1 ); 
-			// Schaue, was als nächstes kommt
+			// Schaue, was als nÃ¤chstes kommt
 			switch( d_in->peek( buf, 1 ) )
 			{
 			case 0:
@@ -169,7 +169,7 @@ void DataReader::fetchNext()
 			d_peek = DataCell::peekCell( d_in );
 			if( !d_peek.isValid() )
 			{
-				// Wir wissen noch nichts über den Slot
+				// Wir wissen noch nichts Ã¼ber den Slot
 				d_state = SlotPeekPending;
 				d_lastToken = Pending;
 				return;
@@ -191,7 +191,7 @@ void DataReader::fetchNext()
 			d_peek = DataCell::peekCell( d_in );
 			if( !d_peek.isValid() )
 			{
-				// Wir wissen noch nichts über den Slot
+				// Wir wissen noch nichts Ã¼ber den Slot
 				d_lastToken = Pending;
 				return;
 			}
@@ -230,7 +230,7 @@ void DataReader::fetchNext()
 		d_peek = DataCell::peekCell( d_in );
 		if( !d_peek.isValid() )
 		{
-			// Wir wissen noch nichts über den Slot
+			// Wir wissen noch nichts Ã¼ber den Slot
 			d_lastToken = Pending;
 			return;
 		}
@@ -268,7 +268,7 @@ DataReader::Token DataReader::nextToken( bool peek )
 	{
 		if( d_peeking )
 		{
-			// Wir wollen den peek Wert, und dieser ist schon da wegen vorgängigem peek.
+			// Wir wollen den peek Wert, und dieser ist schon da wegen vorgÃ¤ngigem peek.
 			return DataReader::Token(d_lastToken);
 		}else
 		{
@@ -281,7 +281,7 @@ DataReader::Token DataReader::nextToken( bool peek )
 	{
 		if( d_peeking )
 		{
-			// Wir wollen den richtigen Wert, und dieser ist schon da wegen vorgängigem peek.
+			// Wir wollen den richtigen Wert, und dieser ist schon da wegen vorgÃ¤ngigem peek.
 			d_peeking = false;
 			return DataReader::Token(d_lastToken);
 		}else
